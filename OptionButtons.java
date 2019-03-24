@@ -82,14 +82,6 @@ public class OptionButtons extends JToolBar{
                 addCard.add(descBox);
                 addCard.setResizable(false);
                 addCard.setVisible(true);
-                usedCategories.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-                    String type;
-                    @Override
-                    public void valueChanged(ListSelectionEvent e)
-                    {
-
-                    }
-                });
                 addCard.addWindowListener(new WindowAdapter()
                 {
                     @Override

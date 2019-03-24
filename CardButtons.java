@@ -137,7 +137,7 @@ public class CardButtons extends JToolBar {
         {
             theCurrentCardSlot = sortBox.getCardSlot(slot);
         }
-        if(theCurrentCardSlot.isEmpty())
+        if(!theCurrentCardSlot.isEmpty())
         {
             String[] currentCards = new String[theCurrentCardSlot.size()];
             for(int i = 0; i < currentCards.length; i++)
