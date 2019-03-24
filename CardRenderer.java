@@ -7,8 +7,10 @@ import java.awt.*;
  */
 public class CardRenderer extends JPanel{
 
+    private CardStorage sortBox;
     public CardRenderer()
     {
+        sortBox = CardStorage.getInstance();
         setPreferredSize(new Dimension(800, 800));
         setOpaque(true);
         setVisible(true);

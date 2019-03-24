@@ -1,21 +1,16 @@
 import javax.swing.*;
-import javax.swing.colorchooser.AbstractColorChooserPanel;
+import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.time.LocalDate;
-import java.awt.event.WindowEvent;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import java.util.Scanner;
 
 /**
  * Ian Anderson
  * 3/21/2019
  */
 public class OptionButtons extends JToolBar{
-
     private Color colorChosen = Color.WHITE;
     public OptionButtons()
     {
@@ -37,18 +32,21 @@ public class OptionButtons extends JToolBar{
         JButton style = new JButton("Change Style");
         JButton about = new JButton("About...");
 
-        String[] cardCategories = {"Pictures", "Work", "School", "Houses", "Cards"};
+        CardStorage sortBox = CardStorage.getInstance();
+        String[] cardCategories = {"Cheese", "Work", "School", "Houses", "Trucks"};
         JList usedCategories = new JList<>(cardCategories);
         usedCategories.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         usedCategories.setLayoutOrientation(JList.VERTICAL);
         usedCategories.setVisibleRowCount(-1);
 
-
         about.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
-                JOptionPane.showMessageDialog(null, "Radix Sort Gui Alpha\nBy Ian Anderson and Cole Brooks\nBuilt on " + LocalDate.now(),
+                JOptionPane.showMessageDialog(null, "Radix Sort Gui Alpha" +
+                                "\nBy Ian Anderson and Cole Brooks" +
+                                "\nCurrent Memory Usage: " + ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024) + " KB" +
+                                "\nBuilt on " + LocalDate.now(),
                         "About Radix Sort Gui",
                         JOptionPane.INFORMATION_MESSAGE);
             }
@@ -60,25 +58,7 @@ public class OptionButtons extends JToolBar{
             {
                 JFrame colorBackdrop = new JFrame("Card Color Picker");
                 colorBackdrop.setSize(700, 400);
-                JColorChooser userColorChoose = new JColorChooser(colorChosen);
-                AbstractColorChooserPanel[] thePanels = userColorChoose.getChooserPanels();
-                for(int i = 0; i < thePanels.length; i++)
-                {
-                    String panelName = thePanels[i].getDisplayName();
-                    if(panelName.equals("HSL") || panelName.equals("CMYK"))
-                    {
-                        userColorChoose.removeChooserPanel(thePanels[i]);
-                    }
-                }
-                colorBackdrop.addWindowListener(new WindowAdapter()
-                {
-                    @Override
-                    public void windowClosing(WindowEvent e) {
-                        colorChosen = userColorChoose.getColor();
-                    }
-                });
-                colorBackdrop.add(userColorChoose);
-                colorBackdrop.setVisible(true);
+                colorChosen = JColorChooser.showDialog(colorBackdrop, "Card Color Picker", colorChosen);
             }
         });
 
@@ -95,9 +75,6 @@ public class OptionButtons extends JToolBar{
                 catergoryScroll.setPreferredSize(new Dimension(250, 80));
                 JLabel enterDesc = new JLabel("Description: ");
                 JTextArea descBox = new JTextArea(20, 20);
-                String name;
-                String desc;
-                String type ;
                 addCard.add(enterName);
                 addCard.add(nameBar);
                 addCard.add(catergoryScroll);
@@ -107,14 +84,71 @@ public class OptionButtons extends JToolBar{
                 addCard.setVisible(true);
                 usedCategories.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                     String type;
+                    @Override
                     public void valueChanged(ListSelectionEvent e)
                     {
 
                     }
                 });
+                addCard.addWindowListener(new WindowAdapter()
+                {
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        String name = nameBar.getText();
+                        String desc = descBox.getText();
+                        String type = (String) usedCategories.getSelectedValue();
+                        sortBox.addCardToUnsorted(new Card(name, type, desc, colorChosen));
+                    }
+                });
             }
         });
 
+        impText.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                JFrame getCard = new JFrame("Card File Importer");
+                getCard.setLayout(new FlowLayout(FlowLayout.TRAILING));
+                getCard.setSize(550, 400);
+                final JFileChooser cardSelector = new JFileChooser();
+                getCard.add(cardSelector);
+                getCard.setVisible(true);
+                cardSelector.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        int fileSelected = cardSelector.showOpenDialog(cardSelector);
+                        if(fileSelected == JFileChooser.APPROVE_OPTION)
+                        {
+                            File importCardFile = cardSelector.getSelectedFile();
+                            try
+                            {
+                                Scanner scan = new Scanner(importCardFile);
+                                String name;
+                                String desc;
+                                String type;
+                                int r;
+                                int g;
+                                int b;
+                                while (scan.hasNextLine())
+                                {
+                                    name = scan.nextLine();
+                                    type = scan.nextLine();
+                                    desc = scan.nextLine();
+                                    r = scan.nextInt();
+                                    g = scan.nextInt();
+                                    b = scan.nextInt();
+                                    sortBox.addCardToUnsorted(new Card(name, type, desc, new Color(r, g, b)));
+                                    scan.nextLine();
+                                }
+                            }
+                            catch (Exception Ignored){}
+                        }
+                        getCard.setVisible(false);
+                    }
+                });
+            }
+        });
         style.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -132,7 +166,7 @@ public class OptionButtons extends JToolBar{
                     UIManager.setLookAndFeel(theLooks[styleSelection].getClassName());
                 }
                 catch (Exception ignored){}
-                updateUI();
+                SwingUtilities.updateComponentTreeUI(SwingUtilities.getRoot((Component) e.getSource()));
             }
         });
 

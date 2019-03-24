@@ -14,5 +14,6 @@ public class CardTester {
         {
             System.out.println(printColor[i]);
         }
+        System.out.println(testCard.toString());
     }
 }

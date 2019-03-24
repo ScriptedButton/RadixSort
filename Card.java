@@ -50,4 +50,8 @@ public class Card {
         }
         return convertedColors;
     }
+    public String toString()
+    {
+        return "Name: " + name + "\nCategory: " + category + "\nDescription: " + description + "\nColor: " + theColor.toString();
+    }
 }

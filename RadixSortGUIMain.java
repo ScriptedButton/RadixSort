@@ -8,9 +8,11 @@ public class RadixSortGUIMain {
     public static void main(String[] args)
     {
         selectStyle();
+        CardStorage sortBox = CardStorage.getInstance();
         JFrame mainFrame = new JFrame("Radix Sort GUI");
         JFrame.setDefaultLookAndFeelDecorated(true);
         OptionButtons userOptionButtons = new OptionButtons();
+        CardButtons machineCardButtons = new CardButtons();
         SortingMachineDrawing theMachine = new SortingMachineDrawing();
         mainFrame.setLayout(null);
         mainFrame.setBackground(Color.GRAY);
@@ -19,8 +21,10 @@ public class RadixSortGUIMain {
         Container layer = mainFrame.getContentPane();
         layer.setLayout(new BorderLayout());
         layer.add(userOptionButtons, BorderLayout.NORTH);
+        layer.add(machineCardButtons, BorderLayout.SOUTH);
         layer.add(theMachine, BorderLayout.CENTER);
         theMachine.repaint();
+        machineCardButtons.updateUI();
         mainFrame.pack();
         mainFrame.setVisible(true);
     }
