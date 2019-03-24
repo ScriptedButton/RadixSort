@@ -31,6 +31,14 @@ public class CardStorage {
         unsortedCards.remove(oldCardIndex);
     }
 
+    public void clearSlot(int slot)
+    {
+        machineSlots.get(slot).clear();
+    }
+    public void clearUnsorted()
+    {
+        unsortedCards.clear();
+    }
     public ArrayList<Card> getUnsortedCards() {
         return unsortedCards;
     }

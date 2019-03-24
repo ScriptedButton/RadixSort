@@ -28,12 +28,12 @@ class Tester {
     public static void main (String[] args)
     {
         int[] arr = randomArray(1000);
-        RadixSort radix = new RadixSort(arr);
+        RadixSort radix = new RadixSort();
         System.out.println("Sorting now...");
         long startTime = System.currentTimeMillis();
         long endTime = System.currentTimeMillis();
-        int n = radix.getArray().length;
-        print(radix.sort(),n);
+        int n = 1000;
+        print(radix.sortInt(arr),n);
         System.out.println();
         System.out.println("Total time: " + (endTime - startTime));
 
