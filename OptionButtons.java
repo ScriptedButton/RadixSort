@@ -73,16 +73,18 @@ public class OptionButtons extends JToolBar{
             {
                 JFrame addCard = new JFrame("New Card Creator");
                 addCard.setLayout(new FlowLayout(FlowLayout.TRAILING));
-                addCard.setSize(350, 300);
-                JLabel enterName = new JLabel("Name: ");
+                addCard.setSize(325, 400);
+                JLabel enterName = new JLabel("Name:     ");
+                JLabel enterType = new JLabel("Category: ");
                 JTextField nameBar = new JTextField(20);
-                JScrollPane catergoryScroll = new JScrollPane(usedCategories);
-                catergoryScroll.setPreferredSize(new Dimension(250, 80));
+                JScrollPane categoryScroll = new JScrollPane(usedCategories);
+                categoryScroll.setPreferredSize(new Dimension(250, 80));
                 JLabel enterDesc = new JLabel("Description: ");
                 JTextArea descBox = new JTextArea(20, 20);
                 addCard.add(enterName);
                 addCard.add(nameBar);
-                addCard.add(catergoryScroll);
+                addCard.add(enterType);
+                addCard.add(categoryScroll);
                 addCard.add(enterDesc);
                 addCard.add(descBox);
                 addCard.setResizable(false);
