@@ -1,0 +1,14 @@
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+
+/**
+ * Created by 21brooksc on 3/25/2019.
+ */
+public class StringToAsciiArray {
+    public static void main(String[] args) {
+
+        byte[] ascii = "abc".getBytes(StandardCharsets.US_ASCII);
+        String asciiString = Arrays.toString(ascii);
+        System.out.println(asciiString);
+    }
+}
