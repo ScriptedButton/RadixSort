@@ -62,7 +62,7 @@ public class SortingMachineDrawing extends JPanel{
                     }
                     //System.out.println("Current Card Color = " + currentCardColor);
                     g.setColor(currentCardColor);
-                    g.fillRect(i, 200 - (j * 10), 85, 10);
+                    g.fillRect(i, 200 - (j), 85, 10);
                 }
                 boxCounter++;
             }
