@@ -7,14 +7,16 @@ import java.awt.*;
  */
 public class SortingMachineDrawing extends JPanel{
 
-    private boolean firstTime = true;
 
+    private CardStorage sortBox;
     public SortingMachineDrawing()
     {
         setPreferredSize(new Dimension(800, 800));
         setOpaque(true);
         setVisible(true);
+        sortBox = CardStorage.getInstance();
     }
+
     @Override
     public void paintComponent(Graphics g)
     {
@@ -26,5 +28,45 @@ public class SortingMachineDrawing extends JPanel{
         {
             g.fillRect(i, 100, 25, 100);
         }
+        int boxCounter = 0;
+        if(!sortBox.getUnsortedCards().isEmpty() || !sortBox.getCardSlot(0).isEmpty()
+         ||!sortBox.getCardSlot(1).isEmpty() || !sortBox.getCardSlot(2).isEmpty()
+         ||!sortBox.getCardSlot(3).isEmpty() || !sortBox.getCardSlot(4).isEmpty()
+         ||!sortBox.getCardSlot(5).isEmpty() || !sortBox.getCardSlot(6).isEmpty()
+         ||!sortBox.getCardSlot(7).isEmpty())
+        {
+            for(int i = 125; i <= 1100; i += 110)
+            {
+                int boxSize;
+                if(boxCounter == 8)
+                {
+                    boxSize = sortBox.getUnsortedCards().size();
+                }
+                else
+                {
+                    boxSize = sortBox.getCardSlot(boxCounter).size();
+                }
+
+                //System.out.println("Box Size = " + boxSize);
+                for(int j = 0; j < boxSize; j++)
+                {
+                    //System.out.println("J value = " + j);
+                    Color currentCardColor;
+                    if(boxCounter == 8)
+                    {
+                        currentCardColor = sortBox.getUnsortedCards().get(j).getColor();
+                    }
+                    else
+                    {
+                        currentCardColor = sortBox.getCardSlot(boxCounter).get(j).getColor();
+                    }
+                    //System.out.println("Current Card Color = " + currentCardColor);
+                    g.setColor(currentCardColor);
+                    g.fillRect(i, 200 - (j * 10), 85, 10);
+                }
+                boxCounter++;
+            }
+        }
+
     }
 }
