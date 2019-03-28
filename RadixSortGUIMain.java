@@ -8,7 +8,6 @@ public class RadixSortGUIMain {
     public static void main(String[] args)
     {
         selectStyle();
-        CardStorage sortBox = CardStorage.getInstance();
         JFrame mainFrame = new JFrame("Radix Sort GUI");
         JFrame.setDefaultLookAndFeelDecorated(true);
         OptionButtons userOptionButtons = new OptionButtons();
@@ -23,7 +22,8 @@ public class RadixSortGUIMain {
         layer.add(userOptionButtons, BorderLayout.NORTH);
         layer.add(machineCardButtons, BorderLayout.SOUTH);
         layer.add(theMachine, BorderLayout.CENTER);
-        theMachine.repaint();
+        Timer refreshScreen = new Timer(10, (e -> theMachine.repaint()));
+        refreshScreen.start();
         machineCardButtons.updateUI();
         mainFrame.pack();
         mainFrame.setVisible(true);

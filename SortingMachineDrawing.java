@@ -9,6 +9,7 @@ public class SortingMachineDrawing extends JPanel{
 
 
     private CardStorage sortBox;
+    private Timer timer;
     public SortingMachineDrawing()
     {
         setPreferredSize(new Dimension(800, 800));
