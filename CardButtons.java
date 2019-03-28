@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
@@ -31,69 +29,15 @@ public class CardButtons extends JToolBar {
         JButton slot8 = new JButton("Slot 8");
         JButton unSort = new JButton("Unsorted Cards");
 
-        slot1.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                slotAction(0);
-            }
-        });
-        slot2.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                slotAction(1);
-            }
-        });
-        slot3.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                slotAction(2);
-            }
-        });
-        slot4.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                slotAction(3);
-            }
-        });
-        slot5.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                slotAction(4);
-            }
-        });
-        slot6.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                slotAction(5);
-            }
-        });
-        slot7.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                slotAction(6);
-            }
-        });
-        slot8.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                slotAction(7);
-            }
-        });
-        unSort.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                slotAction(8);
-            }
-        });
+        slot1.addActionListener(e -> slotAction(0));
+        slot2.addActionListener(e -> slotAction(1));
+        slot3.addActionListener(e -> slotAction(2));
+        slot4.addActionListener(e -> slotAction(3));
+        slot5.addActionListener(e -> slotAction(4));
+        slot6.addActionListener(e -> slotAction(5));
+        slot7.addActionListener(e -> slotAction(6));
+        slot8.addActionListener(e -> slotAction(7));
+        unSort.addActionListener(e -> slotAction(8));
 
         add(Box.createHorizontalStrut(130));
         add(slot1);

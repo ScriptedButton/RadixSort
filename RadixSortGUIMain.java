@@ -17,7 +17,7 @@ public class RadixSortGUIMain {
         mainFrame.setLayout(null);
         mainFrame.setBackground(Color.GRAY);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setPreferredSize(new Dimension(1280, 720));
+        mainFrame.setPreferredSize(new Dimension(1920, 720));
         Container layer = mainFrame.getContentPane();
         layer.setLayout(new BorderLayout());
         layer.add(userOptionButtons, BorderLayout.NORTH);
