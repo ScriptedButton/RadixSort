@@ -64,16 +64,16 @@ public class OptionButtons extends JToolBar{
                 char h = (char) (rand.nextInt(57) + 65);
                 char j = (char) (rand.nextInt(57) + 65);
                 //System.out.println(a);
-                name += Character.toString(a) + Character.toString(b) + Character.toString(c);
-                type += Character.toString(d) + Character.toString(m) + Character.toString(f);
-                desc += Character.toString(g) + Character.toString(h) + Character.toString(j);
+                name += Character.toString(a) + b + c;
+                type += Character.toString(d) + m + f;
+                desc += Character.toString(g) + h + j;
                 sortBox.addCardToUnsorted(new Card(name, type, desc, new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256))));
             }
         });
         about.addActionListener(e ->
         {
             {
-                JOptionPane.showMessageDialog(null, "Radix Sort Gui 1.0" +
+                JOptionPane.showMessageDialog(null, "Radix Sort Gui 1.01" +
                                 "\nBy Ian Anderson and Cole Brooks" +
                                 "\nCurrent Memory Usage: " + ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024) + " KB" +
                                 "\nBuilt on " + LocalDate.now(),
@@ -86,7 +86,7 @@ public class OptionButtons extends JToolBar{
         {
             JFrame colorBackdrop = new JFrame("Ascii Table");
             colorBackdrop.setSize(1280, 851);
-            Path cwd = FileSystems.getDefault().getPath("src/e.png").toAbsolutePath();
+            Path cwd = FileSystems.getDefault().getPath("e.png").toAbsolutePath();
             ImageIcon image = new ImageIcon(cwd.toString());
             colorBackdrop.add(new JLabel(image));
             colorBackdrop.setVisible(true);
