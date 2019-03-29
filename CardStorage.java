@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Ian Anderson
@@ -34,6 +35,12 @@ public class CardStorage {
     public void clearSlot(int slot)
     {
         machineSlots.get(slot).clear();
+    }
+    public void clearAllSlots(){
+        for(ArrayList<Card> cards: machineSlots){
+            cards.clear();
+        }
+        clearUnsorted();
     }
     public void clearUnsorted()
     {
