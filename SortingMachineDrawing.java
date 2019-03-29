@@ -21,6 +21,7 @@ public class SortingMachineDrawing extends JPanel{
     @Override
     public void paintComponent(Graphics g)
     {
+        super.paintComponent(g);
         g.setColor(Color.GRAY);
         g.fillRect(100, 200, 150, 400);
         g.fillRect(100, 200, 950, 25);
