@@ -3,10 +3,8 @@ import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
-import java.nio.file.FileSystems;
 import java.time.LocalDate;
 import java.util.*;
-import java.nio.file.Path;
 
 /**
  * Ian Anderson
@@ -86,8 +84,7 @@ public class OptionButtons extends JToolBar{
         {
             JFrame colorBackdrop = new JFrame("Ascii Table");
             colorBackdrop.setSize(1280, 851);
-            Path cwd = FileSystems.getDefault().getPath("e.png").toAbsolutePath();
-            ImageIcon image = new ImageIcon(cwd.toString());
+            ImageIcon image = new ImageIcon(getClass().getResource("e.png"));
             colorBackdrop.add(new JLabel(image));
             colorBackdrop.setVisible(true);
         });
