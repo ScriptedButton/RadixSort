@@ -44,9 +44,26 @@ public class OptionButtons extends JToolBar{
         usedCategories.setLayoutOrientation(JList.VERTICAL);
         usedCategories.setVisibleRowCount(-1);
 
+        randomize.addActionListener(e ->
+        {
+            Random rand = new Random();
+            ArrayList<Card> allCards = new ArrayList<>();
+            for(int i = 0; i < 8; i++)
+            {
+                allCards.addAll(sortBox.getCardSlot(i));
+            }
+            allCards.addAll(sortBox.getUnsortedCards());
+            sortBox.clearAllSlots();
+            while (!allCards.isEmpty())
+            {
+                int slot = rand.nextInt(8);
+                int card = rand.nextInt(allCards.size());
+                sortBox.addCardToSlot(allCards.get(card), slot);
+                allCards.remove(card);
+            }
+        });
         random1000.addActionListener(e ->
         {
-
             Random rand = new Random();
             for(int i = 0; i < 1000; i++)
             {
@@ -72,7 +89,7 @@ public class OptionButtons extends JToolBar{
         about.addActionListener(e ->
         {
             {
-                JOptionPane.showMessageDialog(null, "Radix Sort Gui 1.1" +
+                JOptionPane.showMessageDialog(null, "Radix Sort Gui 1.1.1" +
                                 "\nBy Ian Anderson and Cole Brooks" +
                                 "\nCurrent Memory Usage: " + ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024) + " KB" +
                                 "\nBuilt on " + LocalDate.now(),
@@ -193,100 +210,56 @@ public class OptionButtons extends JToolBar{
 
         sort1.addActionListener(e ->
         {
-            getMemory();
-            int maxLength = 0;
             ArrayList<String> allTitles = new ArrayList<>();
             ArrayList<Card> allCards = new ArrayList<>();
             for(int i = 0; i < sortBox.getCardSlot(0).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(0).get(i).getName());
-                if(sortBox.getCardSlot(0).get(i).getName().length() > maxLength)
-                {
-                    maxLength = sortBox.getCardSlot(0).get(i).getName().length();
-                }
                 allCards.add(sortBox.getCardSlot(0).get(i));
             }
-            sortBox.clearSlot(0);
             for(int i = 0; i < sortBox.getCardSlot(1).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(1).get(i).getName());
-                if(sortBox.getCardSlot(1).get(i).getName().length() > maxLength)
-                {
-                    maxLength = sortBox.getCardSlot(1).get(i).getName().length();
-                }
                 allCards.add(sortBox.getCardSlot(1).get(i));
             }
-            sortBox.clearSlot(1);
             for(int i = 0; i < sortBox.getCardSlot(2).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(2).get(i).getName());
-                if(sortBox.getCardSlot(2).get(i).getName().length() > maxLength)
-                {
-                    maxLength = sortBox.getCardSlot(2).get(i).getName().length();
-                }
                 allCards.add(sortBox.getCardSlot(2).get(i));
             }
-            sortBox.clearSlot(2);
             for(int i = 0; i < sortBox.getCardSlot(3).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(3).get(i).getName());
-                if(sortBox.getCardSlot(3).get(i).getName().length() > maxLength)
-                {
-                    maxLength = sortBox.getCardSlot(3).get(i).getName().length();
-                }
                 allCards.add(sortBox.getCardSlot(3).get(i));
             }
             sortBox.clearSlot(3);
             for(int i = 0; i < sortBox.getCardSlot(4).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(4).get(i).getName());
-                if(sortBox.getCardSlot(4).get(i).getName().length() > maxLength)
-                {
-                    maxLength = sortBox.getCardSlot(4).get(i).getName().length();
-                }
                 allCards.add(sortBox.getCardSlot(4).get(i));
             }
-            sortBox.clearSlot(4);
             for(int i = 0; i < sortBox.getCardSlot(5).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(5).get(i).getName());
-                if(sortBox.getCardSlot(5).get(i).getName().length() > maxLength)
-                {
-                    maxLength = sortBox.getCardSlot(5).get(i).getName().length();
-                }
                 allCards.add(sortBox.getCardSlot(5).get(i));
             }
             sortBox.clearSlot(5);
             for(int i = 0; i < sortBox.getCardSlot(6).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(6).get(i).getName());
-                if(sortBox.getCardSlot(6).get(i).getName().length() > maxLength)
-                {
-                    maxLength = sortBox.getCardSlot(6).get(i).getName().length();
-                }
                 allCards.add(sortBox.getCardSlot(6).get(i));
             }
-            sortBox.clearSlot(6);
             for(int i = 0; i < sortBox.getCardSlot(7).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(7).get(i).getName());
-                if(sortBox.getCardSlot(7).get(i).getName().length() > maxLength)
-                {
-                    maxLength = sortBox.getCardSlot(7).get(i).getName().length();
-                }
                 allCards.add(sortBox.getCardSlot(7).get(i));
             }
-            sortBox.clearSlot(7);
             for(int i = 0; i < sortBox.getUnsortedCards().size(); i++)
             {
                 allTitles.add(sortBox.getUnsortedCards().get(i).getName());
-                if(sortBox.getUnsortedCards().get(i).getName().length() > maxLength)
-                {
-                    maxLength = sortBox.getUnsortedCards().get(i).getName().length();
-                }
                 allCards.add(sortBox.getUnsortedCards().get(i));
             }
-            sortBox.clearUnsorted();
+            sortBox.clearAllSlots();
             String[] arrayTitles = new String[allTitles.size()];
             String[] sortedTitles = radSort.sortStringAlt(allTitles.toArray(arrayTitles));
             ArrayList<String> sortedArrayList = new ArrayList<>(Arrays.asList(sortedTitles));
@@ -315,99 +288,54 @@ public class OptionButtons extends JToolBar{
         });
         sort2.addActionListener(e ->
         {
-            int maxLength = 0;
             ArrayList<String> allTitles = new ArrayList<>();
             ArrayList<Card> allCards = new ArrayList<>();
             for(int i = 0; i < sortBox.getCardSlot(0).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(0).get(i).getType());
-                if(sortBox.getCardSlot(0).get(i).getType().length() > maxLength)
-                {
-                    maxLength = sortBox.getCardSlot(0).get(i).getType().length();
-                }
                 allCards.add(sortBox.getCardSlot(0).get(i));
             }
-            sortBox.clearSlot(0);
             for(int i = 0; i < sortBox.getCardSlot(1).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(1).get(i).getType());
-                if(sortBox.getCardSlot(1).get(i).getType().length() > maxLength)
-                {
-                    maxLength = sortBox.getCardSlot(1).get(i).getType().length();
-                }
                 allCards.add(sortBox.getCardSlot(1).get(i));
             }
-            sortBox.clearSlot(1);
             for(int i = 0; i < sortBox.getCardSlot(2).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(2).get(i).getType());
-                if(sortBox.getCardSlot(2).get(i).getType().length() > maxLength)
-                {
-                    maxLength = sortBox.getCardSlot(2).get(i).getType().length();
-                }
                 allCards.add(sortBox.getCardSlot(2).get(i));
             }
-            sortBox.clearSlot(2);
             for(int i = 0; i < sortBox.getCardSlot(3).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(3).get(i).getType());
-                if(sortBox.getCardSlot(3).get(i).getType().length() > maxLength)
-                {
-                    maxLength = sortBox.getCardSlot(3).get(i).getType().length();
-                }
                 allCards.add(sortBox.getCardSlot(3).get(i));
             }
-            sortBox.clearSlot(3);
             for(int i = 0; i < sortBox.getCardSlot(4).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(4).get(i).getType());
-                if(sortBox.getCardSlot(4).get(i).getType().length() > maxLength)
-                {
-                    maxLength = sortBox.getCardSlot(4).get(i).getType().length();
-                }
                 allCards.add(sortBox.getCardSlot(4).get(i));
             }
-            sortBox.clearSlot(4);
             for(int i = 0; i < sortBox.getCardSlot(5).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(5).get(i).getType());
-                if(sortBox.getCardSlot(5).get(i).getType().length() > maxLength)
-                {
-                    maxLength = sortBox.getCardSlot(5).get(i).getType().length();
-                }
                 allCards.add(sortBox.getCardSlot(5).get(i));
             }
-            sortBox.clearSlot(5);
             for(int i = 0; i < sortBox.getCardSlot(6).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(6).get(i).getType());
-                if(sortBox.getCardSlot(6).get(i).getType().length() > maxLength)
-                {
-                    maxLength = sortBox.getCardSlot(6).get(i).getType().length();
-                }
                 allCards.add(sortBox.getCardSlot(6).get(i));
             }
-            sortBox.clearSlot(6);
             for(int i = 0; i < sortBox.getCardSlot(7).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(7).get(i).getType());
-                if(sortBox.getCardSlot(7).get(i).getType().length() > maxLength)
-                {
-                    maxLength = sortBox.getCardSlot(7).get(i).getType().length();
-                }
                 allCards.add(sortBox.getCardSlot(7).get(i));
             }
-            sortBox.clearSlot(7);
             for(int i = 0; i < sortBox.getUnsortedCards().size(); i++)
             {
                 allTitles.add(sortBox.getUnsortedCards().get(i).getType());
-                if(sortBox.getUnsortedCards().get(i).getType().length() > maxLength)
-                {
-                    maxLength = sortBox.getUnsortedCards().get(i).getType().length();
-                }
                 allCards.add(sortBox.getUnsortedCards().get(i));
             }
-            sortBox.clearUnsorted();
+            sortBox.clearAllSlots();
             String[] arrayTitles = new String[allTitles.size()];
             String[] sortedTitles = radSort.sortStringAlt(allTitles.toArray(arrayTitles));
             ArrayList<String> sortedArrayList = new ArrayList<>(Arrays.asList(sortedTitles));
@@ -443,55 +371,47 @@ public class OptionButtons extends JToolBar{
                 allTitles.add(sortBox.getCardSlot(0).get(i).getHSBColorSingle());
                 allCards.add(sortBox.getCardSlot(0).get(i));
             }
-            sortBox.clearSlot(0);
             for(int i = 0; i < sortBox.getCardSlot(1).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(1).get(i).getHSBColorSingle());
                 allCards.add(sortBox.getCardSlot(1).get(i));
             }
-            sortBox.clearSlot(1);
             for(int i = 0; i < sortBox.getCardSlot(2).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(2).get(i).getHSBColorSingle());
                 allCards.add(sortBox.getCardSlot(2).get(i));
             }
-            sortBox.clearSlot(2);
             for(int i = 0; i < sortBox.getCardSlot(3).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(3).get(i).getHSBColorSingle());
                 allCards.add(sortBox.getCardSlot(3).get(i));
             }
-            sortBox.clearSlot(3);
             for(int i = 0; i < sortBox.getCardSlot(4).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(4).get(i).getHSBColorSingle());
                 allCards.add(sortBox.getCardSlot(4).get(i));
             }
-            sortBox.clearSlot(4);
             for(int i = 0; i < sortBox.getCardSlot(5).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(5).get(i).getHSBColorSingle());
                 allCards.add(sortBox.getCardSlot(5).get(i));
             }
-            sortBox.clearSlot(5);
             for(int i = 0; i < sortBox.getCardSlot(6).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(6).get(i).getHSBColorSingle());
                 allCards.add(sortBox.getCardSlot(6).get(i));
             }
-            sortBox.clearSlot(6);
             for(int i = 0; i < sortBox.getCardSlot(7).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(7).get(i).getHSBColorSingle());
                 allCards.add(sortBox.getCardSlot(7).get(i));
             }
-            sortBox.clearSlot(7);
             for(int i = 0; i < sortBox.getUnsortedCards().size(); i++)
             {
                 allTitles.add(sortBox.getUnsortedCards().get(i).getHSBColorSingle());
                 allCards.add(sortBox.getUnsortedCards().get(i));
             }
-            sortBox.clearUnsorted();
+            sortBox.clearAllSlots();
             int[] intermediate = new int[allTitles.size()];
             for(int i = 0; i < intermediate.length; i++)
             {
@@ -548,55 +468,47 @@ public class OptionButtons extends JToolBar{
                 allTitles.add(sortBox.getCardSlot(0).get(i).getSound());
                 allCards.add(sortBox.getCardSlot(0).get(i));
             }
-            sortBox.clearSlot(0);
             for(int i = 0; i < sortBox.getCardSlot(1).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(1).get(i).getSound());
                 allCards.add(sortBox.getCardSlot(1).get(i));
             }
-            sortBox.clearSlot(1);
             for(int i = 0; i < sortBox.getCardSlot(2).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(2).get(i).getSound());
                 allCards.add(sortBox.getCardSlot(2).get(i));
             }
-            sortBox.clearSlot(2);
             for(int i = 0; i < sortBox.getCardSlot(3).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(3).get(i).getSound());
                 allCards.add(sortBox.getCardSlot(3).get(i));
             }
-            sortBox.clearSlot(3);
             for(int i = 0; i < sortBox.getCardSlot(4).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(4).get(i).getSound());
                 allCards.add(sortBox.getCardSlot(4).get(i));
             }
-            sortBox.clearSlot(4);
             for(int i = 0; i < sortBox.getCardSlot(5).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(5).get(i).getSound());
                 allCards.add(sortBox.getCardSlot(5).get(i));
             }
-            sortBox.clearSlot(5);
             for(int i = 0; i < sortBox.getCardSlot(6).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(6).get(i).getSound());
                 allCards.add(sortBox.getCardSlot(6).get(i));
             }
-            sortBox.clearSlot(6);
             for(int i = 0; i < sortBox.getCardSlot(7).size(); i++)
             {
                 allTitles.add(sortBox.getCardSlot(7).get(i).getSound());
                 allCards.add(sortBox.getCardSlot(7).get(i));
             }
-            sortBox.clearSlot(7);
             for(int i = 0; i < sortBox.getUnsortedCards().size(); i++)
             {
                 allTitles.add(sortBox.getUnsortedCards().get(i).getSound());
                 allCards.add(sortBox.getUnsortedCards().get(i));
             }
-            sortBox.clearUnsorted();
+            sortBox.clearAllSlots();
             int[] intermediate = new int[allTitles.size()];
             for(int i = 0; i < intermediate.length; i++)
             {
@@ -629,7 +541,7 @@ public class OptionButtons extends JToolBar{
         });
         remove.addActionListener(e ->
         {
-            Frame showCards;
+            JFrame showCards;
             showCards = new JFrame("Remove Cards");
             showCards.setLayout(new FlowLayout(FlowLayout.TRAILING));
             showCards.setSize(350, 300);
