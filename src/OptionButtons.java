@@ -97,15 +97,7 @@ public class OptionButtons extends JToolBar{
         });
        clear.addActionListener(e ->
         {
-            sortBox.getCardSlot(0).clear();
-            sortBox.getCardSlot(1).clear();
-            sortBox.getCardSlot(2).clear();
-            sortBox.getCardSlot(3).clear();
-            sortBox.getCardSlot(4).clear();
-            sortBox.getCardSlot(5).clear();
-            sortBox.getCardSlot(6).clear();
-            sortBox.getCardSlot(7).clear();
-            sortBox.getUnsortedCards().clear();
+            sortBox.clearAllSlots();
         });
 
         place.addActionListener(e ->
