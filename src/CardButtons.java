@@ -1,3 +1,4 @@
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class CardButtons extends JToolBar {
         setFloatable(false);
         setLocation(0, 700);
         setRollover(true);
+        // 16000kHz
 
         sortBox = CardStorage.getInstance();
         JButton slot1 = new JButton("Slot 1");
@@ -28,6 +30,8 @@ public class CardButtons extends JToolBar {
         JButton slot7 = new JButton("Slot 7");
         JButton slot8 = new JButton("Slot 8");
         JButton unSort = new JButton("Unsorted Cards");
+        JButton play1 = new JButton("Play Sounds (Normal)");
+        JButton play2 = new JButton("Play Sounds (Retro)");
 
         slot1.addActionListener(e -> slotAction(0));
         slot2.addActionListener(e -> slotAction(1));
@@ -38,6 +42,9 @@ public class CardButtons extends JToolBar {
         slot7.addActionListener(e -> slotAction(6));
         slot8.addActionListener(e -> slotAction(7));
         unSort.addActionListener(e -> slotAction(8));
+
+        play1.addActionListener(e -> playSounds(0));
+        play2.addActionListener(e -> playSounds(1));
 
         add(Box.createHorizontalStrut(130));
         add(slot1);
@@ -57,8 +64,46 @@ public class CardButtons extends JToolBar {
         add(slot8);
         add(Box.createHorizontalStrut(35));
         add(unSort);
+        add(Box.createHorizontalStrut(35));
+        add(play1);
+        add(Box.createHorizontalStrut(35));
+        add(play2);
     }
 
+    public void playSounds(int mode)
+    {
+        final AudioFormat cardMixer = new AudioFormat(16000, 16, 1, true, true);
+        ArrayList<Integer> cardSounds = new ArrayList<>();
+        for(int i = 0; i < 9; i++)
+        {
+            ArrayList<Card> currentSlotCards;
+            if(i == 8)
+            {
+                currentSlotCards = sortBox.getUnsortedCards();
+            }
+            else
+            {
+                currentSlotCards = sortBox.getCardSlot(i);
+            }
+            for(int j = 0; j < currentSlotCards.size(); j++)
+            {
+                cardSounds.add(currentSlotCards.get(j).getSound());
+            }
+        }
+        try {
+            SourceDataLine line = AudioSystem.getSourceDataLine(cardMixer);
+            line.open(cardMixer);
+            line.start();
+            //play Frequency = 200 Hz for 1 seconds
+            for(int i = 0; i < cardSounds.size(); i++)
+            {
+                byte[] currentWave = generateSineWave(cardSounds.get(i),1, mode);
+                line.write(currentWave, 0, currentWave.length);
+            }
+            line.drain();
+            line.close();
+        } catch (Exception f) { }
+    }
     public void slotAction(int slot)
     {
         JFrame showCards;
@@ -98,6 +143,28 @@ public class CardButtons extends JToolBar {
             showCards.setVisible(true);
 
         }
+    }
+
+
+
+    private static byte[] generateSineWave(int frequency, int seconds, int mode) {
+        // 16kHz
+        byte[] sin = new byte[(seconds * 16000) / 16];
+        double samplingInterval = (double) (16000 / frequency);
+        for (int i = 0; i < sin.length; i++) {
+            double angle = (2 * Math.PI * i) / samplingInterval;
+            {
+                if(mode == 0)
+                {
+                    sin[i] = (byte) (Math.sin(angle) * 127);
+                }
+                else if(mode == 1)
+                {
+                    sin[i] = (byte) (Math.signum((Math.sin(angle) * 127)) * 20);
+                }
+            }
+        }
+        return sin;
     }
 
 }

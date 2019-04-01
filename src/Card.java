@@ -11,13 +11,15 @@ public class Card {
     private String category;
     private String description;
     private Color theColor;
+    private int theSound;
 
-    public Card(String cardName, String cardType, String cardDesc, Color c)
+    public Card(String cardName, String cardType, String cardDesc, Color c, int s)
     {
         name = cardName;
         category = cardType;
         description = cardDesc;
         theColor = c;
+        theSound = s;
     }
 
     public String getName()
@@ -38,6 +40,11 @@ public class Card {
     public Color getColor()
     {
         return theColor;
+    }
+
+    public int getSound()
+    {
+        return theSound;
     }
 
     public int getHSBColorSingle()
@@ -76,6 +83,6 @@ public class Card {
     }
     public String toString()
     {
-        return "Name: " + name + "\nCategory: " + category + "\nDescription: " + description + "\nColor: " + theColor.toString();
+        return "Name: " + name + "\nCategory: " + category + "\nDescription: " + description + "\nColor: " + theColor.toString() + "\nFrequency: " + theSound;
     }
 }

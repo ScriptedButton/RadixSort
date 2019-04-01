@@ -1,5 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
+
 /**
  * Ian Anderson
  * 3/20/2019
@@ -8,7 +9,7 @@ public class RadixSortGUIMain {
     public static void main(String[] args)
     {
         selectStyle();
-        JFrame mainFrame = new JFrame("Radix Sort GUI");
+        JFrame mainFrame = new JFrame("Radix Sort GUI 1.1");
         JFrame.setDefaultLookAndFeelDecorated(true);
         OptionButtons userOptionButtons = new OptionButtons();
         CardButtons machineCardButtons = new CardButtons();
@@ -16,7 +17,7 @@ public class RadixSortGUIMain {
         mainFrame.setLayout(null);
         mainFrame.setBackground(Color.GRAY);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setPreferredSize(new Dimension(1920, 720));
+        mainFrame.setPreferredSize(new Dimension(1600, 720));
         Container layer = mainFrame.getContentPane();
         layer.setLayout(new BorderLayout());
         layer.add(userOptionButtons, BorderLayout.NORTH);

@@ -8,7 +8,7 @@ import java.awt.*;
 public class CardTester {
     public static void main(String[] args)
     {
-        Card testCard = new Card("James", "Cooking", "This is my stuff", new Color(84, 24, 118));
+        Card testCard = new Card("James", "Cooking", "This is my stuff", new Color(84, 24, 118), 500);
        // int[] printColor = testCard.getHSBColor();
        // for(int i = 0; i < printColor.length; i++)
        // {

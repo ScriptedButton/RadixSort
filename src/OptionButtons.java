@@ -31,6 +31,7 @@ public class OptionButtons extends JToolBar{
         JButton sort1 = new JButton("Sort by Name");
         JButton sort2 = new JButton("Sort by Category");
         JButton sort3 = new JButton("Sort by Color");
+        JButton sort4 = new JButton("Sort by Sound");
         JButton style = new JButton("Change Style");
         JButton asciiTable = new JButton("ASCII Table");
         JButton about = new JButton("About...");
@@ -65,13 +66,13 @@ public class OptionButtons extends JToolBar{
                 name += Character.toString(a) + b + c;
                 type += Character.toString(d) + m + f;
                 desc += Character.toString(g) + h + j;
-                sortBox.addCardToUnsorted(new Card(name, type, desc, new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256))));
+                sortBox.addCardToUnsorted(new Card(name, type, desc, new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)), 1 + rand.nextInt(1999)));
             }
         });
         about.addActionListener(e ->
         {
             {
-                JOptionPane.showMessageDialog(null, "Radix Sort Gui 1.0.3" +
+                JOptionPane.showMessageDialog(null, "Radix Sort Gui 1.1" +
                                 "\nBy Ian Anderson and Cole Brooks" +
                                 "\nCurrent Memory Usage: " + ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024) + " KB" +
                                 "\nBuilt on " + LocalDate.now(),
@@ -134,7 +135,8 @@ public class OptionButtons extends JToolBar{
                     String name = nameBar.getText();
                     String desc = descBox.getText();
                     String type = (String) usedCategories.getSelectedValue();
-                    sortBox.addCardToUnsorted(new Card(name, type, desc, colorChosen));
+                    // placeholder sound
+                    sortBox.addCardToUnsorted(new Card(name, type, desc, colorChosen, 500));
                 }
             });
             SwingUtilities.updateComponentTreeUI(SwingUtilities.getRoot((Component) e.getSource()));
@@ -161,6 +163,7 @@ public class OptionButtons extends JToolBar{
                         int r;
                         int g;
                         int b;
+                        int sound;
                         while (scan.hasNextLine()) {
                             name = scan.nextLine();
                             type = scan.nextLine();
@@ -168,7 +171,8 @@ public class OptionButtons extends JToolBar{
                             r = scan.nextInt();
                             g = scan.nextInt();
                             b = scan.nextInt();
-                            sortBox.addCardToUnsorted(new Card(name, type, desc, new Color(r, g, b)));
+                            sound = scan.nextInt();
+                            sortBox.addCardToUnsorted(new Card(name, type, desc, new Color(r, g, b), sound));
                             scan.nextLine();
                         }
                     } catch (Exception Ignored) {
@@ -496,7 +500,6 @@ public class OptionButtons extends JToolBar{
                 allCards.add(sortBox.getUnsortedCards().get(i));
             }
             sortBox.clearUnsorted();
-            Color[] arrayColors = new Color[allTitles.size()];
             int[] intermediate = new int[allTitles.size()];
             for(int i = 0; i < intermediate.length; i++)
             {
@@ -535,6 +538,94 @@ public class OptionButtons extends JToolBar{
                     currentTitlePlace++;
                     int k = 0;
                     while (!currentTitle.equals(allCards.get(k).getHSBColorArray()))
+                    {
+                        k++;
+                    }
+                    sortBox.addCardToSlot(allCards.get(k), i);
+                    allCards.remove(k);
+                }
+            }
+            SwingUtilities.updateComponentTreeUI(SwingUtilities.getRoot((Component) e.getSource()));
+        });
+        sort4.addActionListener(e ->
+        {
+            ArrayList<Integer> allTitles = new ArrayList<>();
+            ArrayList<Card> allCards = new ArrayList<>();
+            for(int i = 0; i < sortBox.getCardSlot(0).size(); i++)
+            {
+                allTitles.add(sortBox.getCardSlot(0).get(i).getSound());
+                allCards.add(sortBox.getCardSlot(0).get(i));
+            }
+            sortBox.clearSlot(0);
+            for(int i = 0; i < sortBox.getCardSlot(1).size(); i++)
+            {
+                allTitles.add(sortBox.getCardSlot(1).get(i).getSound());
+                allCards.add(sortBox.getCardSlot(1).get(i));
+            }
+            sortBox.clearSlot(1);
+            for(int i = 0; i < sortBox.getCardSlot(2).size(); i++)
+            {
+                allTitles.add(sortBox.getCardSlot(2).get(i).getSound());
+                allCards.add(sortBox.getCardSlot(2).get(i));
+            }
+            sortBox.clearSlot(2);
+            for(int i = 0; i < sortBox.getCardSlot(3).size(); i++)
+            {
+                allTitles.add(sortBox.getCardSlot(3).get(i).getSound());
+                allCards.add(sortBox.getCardSlot(3).get(i));
+            }
+            sortBox.clearSlot(3);
+            for(int i = 0; i < sortBox.getCardSlot(4).size(); i++)
+            {
+                allTitles.add(sortBox.getCardSlot(4).get(i).getSound());
+                allCards.add(sortBox.getCardSlot(4).get(i));
+            }
+            sortBox.clearSlot(4);
+            for(int i = 0; i < sortBox.getCardSlot(5).size(); i++)
+            {
+                allTitles.add(sortBox.getCardSlot(5).get(i).getSound());
+                allCards.add(sortBox.getCardSlot(5).get(i));
+            }
+            sortBox.clearSlot(5);
+            for(int i = 0; i < sortBox.getCardSlot(6).size(); i++)
+            {
+                allTitles.add(sortBox.getCardSlot(6).get(i).getSound());
+                allCards.add(sortBox.getCardSlot(6).get(i));
+            }
+            sortBox.clearSlot(6);
+            for(int i = 0; i < sortBox.getCardSlot(7).size(); i++)
+            {
+                allTitles.add(sortBox.getCardSlot(7).get(i).getSound());
+                allCards.add(sortBox.getCardSlot(7).get(i));
+            }
+            sortBox.clearSlot(7);
+            for(int i = 0; i < sortBox.getUnsortedCards().size(); i++)
+            {
+                allTitles.add(sortBox.getUnsortedCards().get(i).getSound());
+                allCards.add(sortBox.getUnsortedCards().get(i));
+            }
+            sortBox.clearUnsorted();
+            int[] intermediate = new int[allTitles.size()];
+            for(int i = 0; i < intermediate.length; i++)
+            {
+                intermediate[i] = allTitles.get(i);
+            }
+            int[] sortedTitles = radSort.sortInt(intermediate);
+            ArrayList<Integer> soundArray = new ArrayList<>();
+            for(int i = 0; i < sortedTitles.length; i++)
+            {
+                soundArray.add(sortedTitles[i]);
+            }
+            int amountInEachBin = sortedTitles.length / 8;
+            int currentTitlePlace = 0;
+            for(int i = 0; i < 8; i++)
+            {
+                for(int j = 0; j < amountInEachBin; j++)
+                {
+                    int currentTitle = soundArray.get(currentTitlePlace);
+                    currentTitlePlace++;
+                    int k = 0;
+                    while (currentTitle != allCards.get(k).getSound())
                     {
                         k++;
                     }
@@ -599,6 +690,8 @@ public class OptionButtons extends JToolBar{
         add(sort2);
         addSeparator();
         add(sort3);
+        addSeparator();
+        add(sort4);
         addSeparator();
         add(style);
         addSeparator();
