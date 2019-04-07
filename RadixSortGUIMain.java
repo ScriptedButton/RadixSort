@@ -9,7 +9,7 @@ public class RadixSortGUIMain {
     public static void main(String[] args)
     {
         selectStyle();
-        JFrame mainFrame = new JFrame("Radix Sort GUI 1.1.2");
+        JFrame mainFrame = new JFrame("Radix Sort GUI 1.2");
         JFrame.setDefaultLookAndFeelDecorated(true);
         OptionButtons userOptionButtons = new OptionButtons();
         CardButtons machineCardButtons = new CardButtons();

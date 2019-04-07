@@ -25,13 +25,10 @@ public class OptionButtons extends JToolBar{
         JButton remove = new JButton("Remove Card");
         JButton clear = new JButton("Clear Cards");
         JButton impText = new JButton("Import Cards");
-        JButton random1000 = new JButton("Generate 1000");
+        JButton randomGen = new JButton("Generate Cards...");
         JButton select = new JButton("Color Picker");
         JButton randomize = new JButton("Randomize");
-        JButton sort1 = new JButton("Sort by Name");
-        JButton sort2 = new JButton("Sort by Category");
-        JButton sort3 = new JButton("Sort by Color");
-        JButton sort4 = new JButton("Sort by Sound");
+        JButton sort = new JButton("Sort By...");
         JButton style = new JButton("Change Style");
         JButton asciiTable = new JButton("ASCII Table");
         JButton about = new JButton("About...");
@@ -62,34 +59,163 @@ public class OptionButtons extends JToolBar{
                 allCards.remove(card);
             }
         });
-        random1000.addActionListener(e ->
+        randomGen.addActionListener(e ->
         {
-            Random rand = new Random();
-            for(int i = 0; i < 1000; i++)
+            int cardNum = 0;
+            String[] genTypes = {"Pure Random","Hue Only Random",
+                    "Grayscale Random", "7 Color Natural Notes Random",
+                    "12 Color All Notes Random"};
+            String selectedGen = (String) JOptionPane.showInputDialog(null,
+                    "Select a random card generation type.",
+                    "Random Card Generator",
+                    JOptionPane.INFORMATION_MESSAGE, null, genTypes, genTypes[0]);
+            String cardNumStr;
+            boolean goodNum = false;
+            do
             {
-                String name = "";
-                String type = "";
-                String desc = "";
-                char a = (char) (rand.nextInt(57) + 65);
-                char b = (char) (rand.nextInt(57) + 65);
-                char c = (char) (rand.nextInt(57) + 65);
-                char d = (char) (rand.nextInt(57) + 65);
-                char m = (char) (rand.nextInt(57) + 65);
-                char f = (char) (rand.nextInt(57) + 65);
-                char g = (char) (rand.nextInt(57) + 65);
-                char h = (char) (rand.nextInt(57) + 65);
-                char j = (char) (rand.nextInt(57) + 65);
-                //System.out.println(a);
-                name += Character.toString(a) + b + c;
-                type += Character.toString(d) + m + f;
-                desc += Character.toString(g) + h + j;
-                sortBox.addCardToUnsorted(new Card(name, type, desc, new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)), 1 + rand.nextInt(1999)));
+                cardNumStr = JOptionPane.showInputDialog("Enter the number of cards to generate.");
+                try
+                {
+                    cardNum = Integer.parseInt(cardNumStr);
+                    goodNum = true;
+                }
+                catch (NumberFormatException n)
+                {
+                    //n.printStackTrace();
+                }
+            } while (!goodNum);
+            Random rand = new Random();
+            if(selectedGen.equals(genTypes[0]))
+            {
+                for(int i = 0; i < cardNum; i++)
+                {
+                    String name = "";
+                    String type = "";
+                    String desc = "";
+                    char a = (char) (rand.nextInt(57) + 65);
+                    char b = (char) (rand.nextInt(57) + 65);
+                    char c = (char) (rand.nextInt(57) + 65);
+                    char d = (char) (rand.nextInt(57) + 65);
+                    char m = (char) (rand.nextInt(57) + 65);
+                    char f = (char) (rand.nextInt(57) + 65);
+                    char g = (char) (rand.nextInt(57) + 65);
+                    char h = (char) (rand.nextInt(57) + 65);
+                    char j = (char) (rand.nextInt(57) + 65);
+                    name += Character.toString(a) + b + c;
+                    type += Character.toString(d) + m + f;
+                    desc += Character.toString(g) + h + j;
+                    sortBox.addCardToUnsorted(new Card(name, type, desc, new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)), 1 + rand.nextInt(1999)));
+                }
             }
+            else if(selectedGen.equals(genTypes[1]))
+            {
+                for(int i = 0; i < cardNum; i++)
+                {
+                    String name = "";
+                    String type = "";
+                    String desc = "";
+                    char a = (char) (rand.nextInt(57) + 65);
+                    char b = (char) (rand.nextInt(57) + 65);
+                    char c = (char) (rand.nextInt(57) + 65);
+                    char d = (char) (rand.nextInt(57) + 65);
+                    char m = (char) (rand.nextInt(57) + 65);
+                    char f = (char) (rand.nextInt(57) + 65);
+                    char g = (char) (rand.nextInt(57) + 65);
+                    char h = (char) (rand.nextInt(57) + 65);
+                    char j = (char) (rand.nextInt(57) + 65);
+                    name += Character.toString(a) + b + c;
+                    type += Character.toString(d) + m + f;
+                    desc += Character.toString(g) + h + j;
+                    float hue = (float) (rand.nextInt(360) / 360.0);
+                    Color hsbColor = Color.getHSBColor(hue, 1, 1);
+                    sortBox.addCardToUnsorted(new Card(name, type, desc, hsbColor, 1 + rand.nextInt(1999)));
+                }
+            }
+            else if(selectedGen.equals(genTypes[2]))
+            {
+                for(int i = 0; i < cardNum; i++)
+                {
+                    String name = "";
+                    String type = "";
+                    String desc = "";
+                    char a = (char) (rand.nextInt(57) + 65);
+                    char b = (char) (rand.nextInt(57) + 65);
+                    char c = (char) (rand.nextInt(57) + 65);
+                    char d = (char) (rand.nextInt(57) + 65);
+                    char m = (char) (rand.nextInt(57) + 65);
+                    char f = (char) (rand.nextInt(57) + 65);
+                    char g = (char) (rand.nextInt(57) + 65);
+                    char h = (char) (rand.nextInt(57) + 65);
+                    char j = (char) (rand.nextInt(57) + 65);
+                    name += Character.toString(a) + b + c;
+                    type += Character.toString(d) + m + f;
+                    desc += Character.toString(g) + h + j;
+                    int colorVal = rand.nextInt(256);
+                    sortBox.addCardToUnsorted(new Card(name, type, desc, new Color(colorVal, colorVal, colorVal), 1 + rand.nextInt(1999)));
+                }
+            }
+            else if(selectedGen.equals(genTypes[3]))
+            {
+                Color[] naturalNoteColors = {Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN,
+                                            Color.CYAN, Color.BLUE, Color.BLACK};
+                double[] possibleNoteValues = {16.35, 18.35, 20.6, 21.83, 24.5, 27.5, 30.87};
+                for(int i = 0; i < cardNum; i++)
+                {
+                    String name = "";
+                    String type = "";
+                    String desc = "";
+                    char a = (char) (rand.nextInt(57) + 65);
+                    char b = (char) (rand.nextInt(57) + 65);
+                    char c = (char) (rand.nextInt(57) + 65);
+                    char d = (char) (rand.nextInt(57) + 65);
+                    char m = (char) (rand.nextInt(57) + 65);
+                    char f = (char) (rand.nextInt(57) + 65);
+                    char g = (char) (rand.nextInt(57) + 65);
+                    char h = (char) (rand.nextInt(57) + 65);
+                    char j = (char) (rand.nextInt(57) + 65);
+                    name += Character.toString(a) + b + c;
+                    type += Character.toString(d) + m + f;
+                    desc += Character.toString(g) + h + j;
+                    int note = rand.nextInt(7);
+                    int octave = rand.nextInt(7);
+                    int calculatedPitch = (int) Math.round(possibleNoteValues[note] * Math.pow(2, octave));
+                    sortBox.addCardToUnsorted(new Card(name, type, desc, naturalNoteColors[note], calculatedPitch));
+                }
+            }
+            else if(selectedGen.equals(genTypes[4]))
+            {
+                Color[] allNoteColors = {Color.PINK, Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN,
+                                        Color.CYAN, Color.BLUE, Color.MAGENTA, Color.LIGHT_GRAY, Color.GRAY, Color.DARK_GRAY, Color.BLACK};
+                double[] possibleNoteValues = {16.35, 17.32, 18.35, 19.45, 20.6, 21.83, 23.12, 24.5, 25.96, 27.5, 29.14, 30.87};
+                for(int i = 0; i < cardNum; i++)
+                {
+                    String name = "";
+                    String type = "";
+                    String desc = "";
+                    char a = (char) (rand.nextInt(57) + 65);
+                    char b = (char) (rand.nextInt(57) + 65);
+                    char c = (char) (rand.nextInt(57) + 65);
+                    char d = (char) (rand.nextInt(57) + 65);
+                    char m = (char) (rand.nextInt(57) + 65);
+                    char f = (char) (rand.nextInt(57) + 65);
+                    char g = (char) (rand.nextInt(57) + 65);
+                    char h = (char) (rand.nextInt(57) + 65);
+                    char j = (char) (rand.nextInt(57) + 65);
+                    name += Character.toString(a) + b + c;
+                    type += Character.toString(d) + m + f;
+                    desc += Character.toString(g) + h + j;
+                    int note = rand.nextInt(12);
+                    int octave = rand.nextInt(7);
+                    int calculatedPitch = (int) Math.round(possibleNoteValues[note] * Math.pow(2, octave));
+                    sortBox.addCardToUnsorted(new Card(name, type, desc, allNoteColors[note], calculatedPitch));
+                }
+            }
+            SwingUtilities.updateComponentTreeUI(SwingUtilities.getRoot((Component) e.getSource()));
         });
         about.addActionListener(e ->
         {
             JOptionPane.showMessageDialog(null,
-                    "Radix Sort Gui 1.1.2" +
+                    "Radix Sort Gui 1.2" +
                             "\nBy Ian Anderson and Cole Brooks" +
                             "\nCurrent Memory Usage: " + ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024) + " KB" +
                             "\nBuilt on " + LocalDate.now(),
@@ -202,207 +328,212 @@ public class OptionButtons extends JToolBar{
             catch (Exception ignored){}
             SwingUtilities.updateComponentTreeUI(SwingUtilities.getRoot((Component) e.getSource()));
         });
-
-        sort1.addActionListener(e ->
+        sort.addActionListener(e ->
         {
-            ArrayList<String> allTitles = new ArrayList<>();
-            ArrayList<Card> allCards = new ArrayList<>();
-            for(int i = 0; i < 8; i++)
+            String[] sortTypes = {"By Name","By Category",
+                    "By Color", "By Pitch"};
+            String selectedSort = (String) JOptionPane.showInputDialog(null,
+                    "Select a sort type.",
+                    "Sort Selector",
+                    JOptionPane.INFORMATION_MESSAGE, null, sortTypes, sortTypes[0]);
+            if(selectedSort.equals(sortTypes[0]))
             {
-                for(int j = 0; j < sortBox.getCardSlot(i).size(); j++)
-                {
-                    allTitles.add(sortBox.getCardSlot(i).get(j).getName());
-                    allCards.add(sortBox.getCardSlot(i).get(j));
-                }
-            }
-            for(int i = 0; i < sortBox.getUnsortedCards().size(); i++)
-            {
-                allTitles.add(sortBox.getUnsortedCards().get(i).getName());
-                allCards.add(sortBox.getUnsortedCards().get(i));
-            }
-            if(!allTitles.isEmpty())
-            {
-                sortBox.clearAllSlots();
-                String[] arrayTitles = new String[allTitles.size()];
-                String[] sortedTitles = radSort.sortStringAlt(allTitles.toArray(arrayTitles));
-                ArrayList<String> sortedArrayList = new ArrayList<>(Arrays.asList(sortedTitles));
-                int amountInEachBin = sortedTitles.length / 8;
-                int currentTitlePlace = 0;
+                ArrayList<String> allTitles = new ArrayList<>();
+                ArrayList<Card> allCards = new ArrayList<>();
                 for(int i = 0; i < 8; i++)
                 {
-                    for(int j = 0; j < amountInEachBin; j++)
+                    for(int j = 0; j < sortBox.getCardSlot(i).size(); j++)
                     {
-                        String currentTitle = sortedArrayList.get(currentTitlePlace);
-                        currentTitlePlace++;
-                        int k = 0;
-                        while (!currentTitle.equals(allCards.get(k).getName()))
+                        allTitles.add(sortBox.getCardSlot(i).get(j).getName());
+                        allCards.add(sortBox.getCardSlot(i).get(j));
+                    }
+                }
+                for(int i = 0; i < sortBox.getUnsortedCards().size(); i++)
+                {
+                    allTitles.add(sortBox.getUnsortedCards().get(i).getName());
+                    allCards.add(sortBox.getUnsortedCards().get(i));
+                }
+                if(!allTitles.isEmpty())
+                {
+                    sortBox.clearAllSlots();
+                    String[] arrayTitles = new String[allTitles.size()];
+                    String[] sortedTitles = radSort.sortStringAlt(allTitles.toArray(arrayTitles));
+                    ArrayList<String> sortedArrayList = new ArrayList<>(Arrays.asList(sortedTitles));
+                    int amountInEachBin = sortedTitles.length / 8;
+                    int currentTitlePlace = 0;
+                    for(int i = 0; i < 8; i++)
+                    {
+                        for(int j = 0; j < amountInEachBin; j++)
                         {
-                            k++;
+                            String currentTitle = sortedArrayList.get(currentTitlePlace);
+                            currentTitlePlace++;
+                            int k = 0;
+                            while (!currentTitle.equals(allCards.get(k).getName()))
+                            {
+                                k++;
+                            }
+                            sortBox.addCardToSlot(allCards.get(k), i);
+                            allCards.remove(k);
                         }
-                        sortBox.addCardToSlot(allCards.get(k), i);
-                        allCards.remove(k);
                     }
                 }
             }
-            SwingUtilities.updateComponentTreeUI(SwingUtilities.getRoot((Component) e.getSource()));
-        });
-        sort2.addActionListener(e ->
-        {
-            ArrayList<String> allCategories = new ArrayList<>();
-            ArrayList<Card> allCards = new ArrayList<>();
-            for(int i = 0; i < 8; i++)
+            else if(selectedSort.equals(sortTypes[1]))
             {
-                for(int j = 0; j < sortBox.getCardSlot(i).size(); j++)
-                {
-                    allCategories.add(sortBox.getCardSlot(i).get(j).getType());
-                    allCards.add(sortBox.getCardSlot(i).get(j));
-                }
-            }
-            for(int i = 0; i < sortBox.getUnsortedCards().size(); i++)
-            {
-                allCategories.add(sortBox.getUnsortedCards().get(i).getType());
-                allCards.add(sortBox.getUnsortedCards().get(i));
-            }
-            if(!allCategories.isEmpty())
-            {
-                sortBox.clearAllSlots();
-                String[] arrayTitles = new String[allCategories.size()];
-                String[] sortedTitles = radSort.sortStringAlt(allCategories.toArray(arrayTitles));
-                ArrayList<String> sortedArrayList = new ArrayList<>(Arrays.asList(sortedTitles));
-                int amountInEachBin = sortedTitles.length / 8;
-                int currentTitlePlace = 0;
+                ArrayList<String> allCategories = new ArrayList<>();
+                ArrayList<Card> allCards = new ArrayList<>();
                 for(int i = 0; i < 8; i++)
                 {
-                    for(int j = 0; j < amountInEachBin; j++)
+                    for(int j = 0; j < sortBox.getCardSlot(i).size(); j++)
                     {
-                        String currentTitle = sortedArrayList.get(currentTitlePlace);
-                        currentTitlePlace++;
-                        int k = 0;
-                        while (!currentTitle.equals(allCards.get(k).getType()))
+                        allCategories.add(sortBox.getCardSlot(i).get(j).getType());
+                        allCards.add(sortBox.getCardSlot(i).get(j));
+                    }
+                }
+                for(int i = 0; i < sortBox.getUnsortedCards().size(); i++)
+                {
+                    allCategories.add(sortBox.getUnsortedCards().get(i).getType());
+                    allCards.add(sortBox.getUnsortedCards().get(i));
+                }
+                if(!allCategories.isEmpty())
+                {
+                    sortBox.clearAllSlots();
+                    String[] arrayTitles = new String[allCategories.size()];
+                    String[] sortedTitles = radSort.sortStringAlt(allCategories.toArray(arrayTitles));
+                    ArrayList<String> sortedArrayList = new ArrayList<>(Arrays.asList(sortedTitles));
+                    int amountInEachBin = sortedTitles.length / 8;
+                    int currentTitlePlace = 0;
+                    for(int i = 0; i < 8; i++)
+                    {
+                        for(int j = 0; j < amountInEachBin; j++)
                         {
-                            k++;
+                            String currentTitle = sortedArrayList.get(currentTitlePlace);
+                            currentTitlePlace++;
+                            int k = 0;
+                            while (!currentTitle.equals(allCards.get(k).getType()))
+                            {
+                                k++;
+                            }
+                            sortBox.addCardToSlot(allCards.get(k), i);
+                            allCards.remove(k);
                         }
-                        sortBox.addCardToSlot(allCards.get(k), i);
-                        allCards.remove(k);
                     }
                 }
             }
-            SwingUtilities.updateComponentTreeUI(SwingUtilities.getRoot((Component) e.getSource()));
-        });
-        sort3.addActionListener(e ->
-        {
-            ArrayList<Integer> allColorInts = new ArrayList<>();
-            ArrayList<Card> allCards = new ArrayList<>();
-            for(int i = 0; i < 8; i++)
+            else if(selectedSort.equals(sortTypes[2]))
             {
-                for(int j = 0; j < sortBox.getCardSlot(i).size(); j++)
-                {
-                    allColorInts.add(sortBox.getCardSlot(i).get(j).getHSBColorSingle());
-                    allCards.add(sortBox.getCardSlot(i).get(j));
-                }
-            }
-            for(int i = 0; i < sortBox.getUnsortedCards().size(); i++)
-            {
-                allColorInts.add(sortBox.getUnsortedCards().get(i).getHSBColorSingle());
-                allCards.add(sortBox.getUnsortedCards().get(i));
-            }
-            if(!allColorInts.isEmpty())
-            {
-                sortBox.clearAllSlots();
-                int[] intermediate = new int[allColorInts.size()];
-                for(int i = 0; i < intermediate.length; i++)
-                {
-                    intermediate[i] = allColorInts.get(i);
-                }
-                int[] sortedTitles = radSort.sortInt(intermediate);
-                ArrayList<ArrayList<Integer>> colorSets = new ArrayList<>();
-                for(int i = 0; i < sortedTitles.length; i++)
-                {
-                    colorSets.add(new ArrayList<>());
-                }
-                String[] numStrings = new String[sortedTitles.length];
-                for(int i = 0; i < numStrings.length; i++)
-                {
-                    numStrings[i] = Integer.toString(sortedTitles[i]);
-                    while (numStrings[i].length() < 9)
-                    {
-                        numStrings[i] = "0" + numStrings[i];
-                    }
-                }
-                for(int i = 0; i < allColorInts.size(); i++)
-                {
-                    for (int j = 0; j < 3; j++)
-                    {
-                        colorSets.get(i).add(Integer.parseInt(numStrings[i].substring(0, 3)));
-                        numStrings[i] = numStrings[i].substring(3);
-                    }
-                }
-                int amountInEachBin = sortedTitles.length / 8;
-                int currentTitlePlace = 0;
+                ArrayList<Integer> allColorInts = new ArrayList<>();
+                ArrayList<Card> allCards = new ArrayList<>();
                 for(int i = 0; i < 8; i++)
                 {
-                    for(int j = 0; j < amountInEachBin; j++)
+                    for(int j = 0; j < sortBox.getCardSlot(i).size(); j++)
                     {
-                        ArrayList<Integer> currentTitle = colorSets.get(currentTitlePlace);
-                        currentTitlePlace++;
-                        int k = 0;
-                        while (!currentTitle.equals(allCards.get(k).getHSBColorArray()))
+                        allColorInts.add(sortBox.getCardSlot(i).get(j).getHSBColorSingle());
+                        allCards.add(sortBox.getCardSlot(i).get(j));
+                    }
+                }
+                for(int i = 0; i < sortBox.getUnsortedCards().size(); i++)
+                {
+                    allColorInts.add(sortBox.getUnsortedCards().get(i).getHSBColorSingle());
+                    allCards.add(sortBox.getUnsortedCards().get(i));
+                }
+                if(!allColorInts.isEmpty())
+                {
+                    sortBox.clearAllSlots();
+                    int[] intermediate = new int[allColorInts.size()];
+                    for(int i = 0; i < intermediate.length; i++)
+                    {
+                        intermediate[i] = allColorInts.get(i);
+                    }
+                    int[] sortedTitles = radSort.sortInt(intermediate);
+                    ArrayList<ArrayList<Integer>> colorSets = new ArrayList<>();
+                    for(int i = 0; i < sortedTitles.length; i++)
+                    {
+                        colorSets.add(new ArrayList<>());
+                    }
+                    String[] numStrings = new String[sortedTitles.length];
+                    for(int i = 0; i < numStrings.length; i++)
+                    {
+                        numStrings[i] = Integer.toString(sortedTitles[i]);
+                        while (numStrings[i].length() < 9)
                         {
-                            k++;
+                            numStrings[i] = "0" + numStrings[i];
                         }
-                        sortBox.addCardToSlot(allCards.get(k), i);
-                        allCards.remove(k);
+                    }
+                    for(int i = 0; i < allColorInts.size(); i++)
+                    {
+                        for (int j = 0; j < 3; j++)
+                        {
+                            colorSets.get(i).add(Integer.parseInt(numStrings[i].substring(0, 3)));
+                            numStrings[i] = numStrings[i].substring(3);
+                        }
+                    }
+                    int amountInEachBin = sortedTitles.length / 8;
+                    int currentTitlePlace = 0;
+                    for(int i = 0; i < 8; i++)
+                    {
+                        for(int j = 0; j < amountInEachBin; j++)
+                        {
+                            ArrayList<Integer> currentTitle = colorSets.get(currentTitlePlace);
+                            currentTitlePlace++;
+                            int k = 0;
+                            while (!currentTitle.equals(allCards.get(k).getHSBColorArray()))
+                            {
+                                k++;
+                            }
+                            sortBox.addCardToSlot(allCards.get(k), i);
+                            allCards.remove(k);
+                        }
                     }
                 }
             }
-            SwingUtilities.updateComponentTreeUI(SwingUtilities.getRoot((Component) e.getSource()));
-        });
-        sort4.addActionListener(e ->
-        {
-            ArrayList<Integer> allFrequencies = new ArrayList<>();
-            ArrayList<Card> allCards = new ArrayList<>();
-            for(int i = 0; i < 8; i++)
+            else if(selectedSort.equals(sortTypes[3]))
             {
-                for(int j = 0; j < sortBox.getCardSlot(i).size(); j++)
-                {
-                    allFrequencies.add(sortBox.getCardSlot(i).get(j).getSound());
-                    allCards.add(sortBox.getCardSlot(i).get(j));
-                }
-            }
-            for(int i = 0; i < sortBox.getUnsortedCards().size(); i++)
-            {
-                allFrequencies.add(sortBox.getUnsortedCards().get(i).getSound());
-                allCards.add(sortBox.getUnsortedCards().get(i));
-            }
-            if(!allFrequencies.isEmpty())
-            {
-                sortBox.clearAllSlots();
-                int[] intermediate = new int[allFrequencies.size()];
-                for(int i = 0; i < intermediate.length; i++)
-                {
-                    intermediate[i] = allFrequencies.get(i);
-                }
-                int[] sortedTitles = radSort.sortInt(intermediate);
-                ArrayList<Integer> soundArray = new ArrayList<>();
-                for(Integer i: sortedTitles)
-                {
-                    soundArray.add(i);
-                }
-                int amountInEachBin = sortedTitles.length / 8;
-                int currentTitlePlace = 0;
+                ArrayList<Integer> allFrequencies = new ArrayList<>();
+                ArrayList<Card> allCards = new ArrayList<>();
                 for(int i = 0; i < 8; i++)
                 {
-                    for(int j = 0; j < amountInEachBin; j++)
+                    for(int j = 0; j < sortBox.getCardSlot(i).size(); j++)
                     {
-                        int currentTitle = soundArray.get(currentTitlePlace);
-                        currentTitlePlace++;
-                        int k = 0;
-                        while (currentTitle != allCards.get(k).getSound())
+                        allFrequencies.add(sortBox.getCardSlot(i).get(j).getSound());
+                        allCards.add(sortBox.getCardSlot(i).get(j));
+                    }
+                }
+                for(int i = 0; i < sortBox.getUnsortedCards().size(); i++)
+                {
+                    allFrequencies.add(sortBox.getUnsortedCards().get(i).getSound());
+                    allCards.add(sortBox.getUnsortedCards().get(i));
+                }
+                if(!allFrequencies.isEmpty())
+                {
+                    sortBox.clearAllSlots();
+                    int[] intermediate = new int[allFrequencies.size()];
+                    for(int i = 0; i < intermediate.length; i++)
+                    {
+                        intermediate[i] = allFrequencies.get(i);
+                    }
+                    int[] sortedTitles = radSort.sortInt(intermediate);
+                    ArrayList<Integer> soundArray = new ArrayList<>();
+                    for(Integer i: sortedTitles)
+                    {
+                        soundArray.add(i);
+                    }
+                    int amountInEachBin = sortedTitles.length / 8;
+                    int currentTitlePlace = 0;
+                    for(int i = 0; i < 8; i++)
+                    {
+                        for(int j = 0; j < amountInEachBin; j++)
                         {
-                            k++;
+                            int currentTitle = soundArray.get(currentTitlePlace);
+                            currentTitlePlace++;
+                            int k = 0;
+                            while (currentTitle != allCards.get(k).getSound())
+                            {
+                                k++;
+                            }
+                            sortBox.addCardToSlot(allCards.get(k), i);
+                            allCards.remove(k);
                         }
-                        sortBox.addCardToSlot(allCards.get(k), i);
-                        allCards.remove(k);
                     }
                 }
             }
@@ -452,19 +583,13 @@ public class OptionButtons extends JToolBar{
         addSeparator();
         add(impText);
         addSeparator();
-        add(random1000);
+        add(randomGen);
         addSeparator();
         add(select);
         addSeparator();
         add(randomize);
         addSeparator();
-        add(sort1);
-        addSeparator();
-        add(sort2);
-        addSeparator();
-        add(sort3);
-        addSeparator();
-        add(sort4);
+        add(sort);
         addSeparator();
         add(style);
         addSeparator();
