@@ -214,7 +214,7 @@ public class OptionButtons extends JToolBar{
         about.addActionListener(e ->
         {
             JOptionPane.showMessageDialog(null,
-                    "Radix Sort Gui 1.2" +
+                    "Radix Sort Gui 1.2.1" +
                             "\nBy Ian Anderson and Cole Brooks" +
                             "\nCurrent Memory Usage: " + ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024) + " KB" +
                             "\nBuilt on " + LocalDate.now(),
