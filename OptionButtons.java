@@ -33,7 +33,6 @@ public class OptionButtons extends JToolBar{
         JButton asciiTable = new JButton("ASCII Table");
         JButton about = new JButton("About...");
 
-        RadixSort radSort = new RadixSort();
         CardStorage sortBox = CardStorage.getInstance();
         String[] cardCategories = {"Fun", "Wrk", "Edu", "Car", "Vid"};
         JList usedCategories = new JList<>(cardCategories);
@@ -357,7 +356,7 @@ public class OptionButtons extends JToolBar{
                 {
                     sortBox.clearAllSlots();
                     String[] arrayTitles = new String[allTitles.size()];
-                    String[] sortedTitles = radSort.sortStringAlt(allTitles.toArray(arrayTitles));
+                    String[] sortedTitles = RadixSort.sortStringAlt(allTitles.toArray(arrayTitles));
                     ArrayList<String> sortedArrayList = new ArrayList<>(Arrays.asList(sortedTitles));
                     int amountInEachBin = sortedTitles.length / 8;
                     int currentTitlePlace = 0;
@@ -399,7 +398,7 @@ public class OptionButtons extends JToolBar{
                 {
                     sortBox.clearAllSlots();
                     String[] arrayTitles = new String[allCategories.size()];
-                    String[] sortedTitles = radSort.sortStringAlt(allCategories.toArray(arrayTitles));
+                    String[] sortedTitles = RadixSort.sortStringAlt(allCategories.toArray(arrayTitles));
                     ArrayList<String> sortedArrayList = new ArrayList<>(Arrays.asList(sortedTitles));
                     int amountInEachBin = sortedTitles.length / 8;
                     int currentTitlePlace = 0;
@@ -445,7 +444,7 @@ public class OptionButtons extends JToolBar{
                     {
                         intermediate[i] = allColorInts.get(i);
                     }
-                    int[] sortedTitles = radSort.sortInt(intermediate);
+                    int[] sortedTitles = RadixSort.sortInt(intermediate);
                     ArrayList<ArrayList<Integer>> colorSets = new ArrayList<>();
                     for(int i = 0; i < sortedTitles.length; i++)
                     {
@@ -512,7 +511,7 @@ public class OptionButtons extends JToolBar{
                     {
                         intermediate[i] = allFrequencies.get(i);
                     }
-                    int[] sortedTitles = radSort.sortInt(intermediate);
+                    int[] sortedTitles = RadixSort.sortInt(intermediate);
                     ArrayList<Integer> soundArray = new ArrayList<>();
                     for(Integer i: sortedTitles)
                     {
